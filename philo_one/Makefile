@@ -1,5 +1,4 @@
-SRCS =	main.c lst_utils.c malloc_free_and_exit.c setters.c ft_atoi.c
-
+SRCS =	main.c lst_utils.c malloc_free_and_exit.c setters.c ft_atoi.c time.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -11,19 +10,21 @@ CC = gcc
 
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+LIB=-lpthread
+
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 %.o: %.c	${HEADER}
-			${CC} -c  $< -o ${<:.c=.o} 
+			${CC} ${FLAGS} -c  $< -o ${<:.c=.o} 
 
 
 $(NAME):	${OBJS}
-			${CC} $(FLAGS) -o ${NAME} ${OBJS} 
+			${CC} $(FLAGS) ${OBJS} ${LIB} -o ${NAME}  
 
 all:		$(NAME)
 
 clean:
-			${RM} ${OBJS} libmlx.dylib
+			${RM} ${OBJS}
 
 fclean:		clean
 			${RM} ${NAME}
@@ -31,3 +32,4 @@ fclean:		clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
