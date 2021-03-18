@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:52:58 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/01 15:11:15 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 11:06:09 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ t_philos	*ft_init_philos(t_global *g, int pos)
 {
 	t_philos	*p;
 
-	(void)pos;
+
+	// p = g->philos[pos];
 	p = malloc_lst(sizeof(t_philos), g);
+	p->pos = pos;
 	p->thread = ft_create_thread(g);
 	p->times_eat = 0;
 	p->tsleep = 0;
 	p->tthink = 0;
 	p->tdie = ft_time(g, 0) + g->info->time_die;
 	p->teat = 0;
+	p->start_sec = g->start_sec;
+	p->start_usec = g->start_usec;
 	return (p);
 }

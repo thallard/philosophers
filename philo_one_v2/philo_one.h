@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/25 15:04:06 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/03 11:40:59 by thallard         ###   ########lyon.fr   */
+/*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
+/*   Updated: 2021/03/16 15:04:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@
 
 typedef struct		s_philos
 {
-	pthread_t		thread;
-	int				pos;
-	int				tdie;
-	int				teat;
-	int				tthink;
-	int				tsleep;
-	int				times_eat;
-	int				times_to_eat;
+	long			pos;
+	long			tdie;
+	long			teat;
+	long			tthink;
+	long			tsleep;
+	long			times_eat;
+	long			times_to_eat;
 	double			start_usec;
 	double			start_sec;
+	pthread_t		thread;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*locks;
+
 }					t_philos;
 
 typedef struct		s_infos_philo
@@ -61,32 +64,15 @@ typedef struct		s_global
 	double			start_sec;
 }					t_global;
 
-/*
-* Utils
-*/
-void		*add_lst_to_free(t_global *global, void *ptr);
-void		*malloc_lst(int size, t_global *global);
-void		ft_exit(t_global *global);
-void		ft_fin(t_global *g, int pos);
-long		ft_atoi(const char *str);
+void	*malloc_lst(int size, t_global *global);
+void	*add_lst_to_free(t_global *global, void *ptr);
+int		ft_exit(t_global *g);
 
-pthread_t	ft_create_thread(t_global *global);
-
-/*
-** Setters
-*/
-void		ft_init_infos_philo(t_infos_philo *info, t_global *global, char **argv);
-t_philos	*ft_init_philos(t_global *g, int pos);
-/*
-** Linked list utils
-*/
-t_malloc	*ft_lstnew(void *content);
-t_malloc	*ft_lstlast(t_malloc *lst);
-void		ft_lstadd_back(t_malloc **alst, t_malloc *new);
-
-/*
-** Time utils
-*/
+long				ft_atoi(const char *str);
 double	ft_time(t_global *g, int boolstart);
+t_malloc	*ft_lstmalloc_new(void *content);
+void	ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
+t_malloc	*ft_lstmalloc_last(t_malloc *lst);
+void		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
 
 #endif

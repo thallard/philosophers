@@ -1,4 +1,4 @@
-SRCS =	main.c lst_utils.c malloc_free_and_exit.c setters.c ft_atoi.c time.c
+SRCS =	main.c ft_atoi.c malloc_free_and_exit.c lst_utils.c time.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -12,7 +12,7 @@ RM = rm -f
 
 LIB=-lpthread
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 %.o: %.c	${HEADER}
 			${CC} ${FLAGS} -c  $< -o ${<:.c=.o} 
