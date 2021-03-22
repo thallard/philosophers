@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/20 15:19:30 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 12:12:30 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct		s_infos_philo
 typedef struct		s_philos
 {
 	long			pos;
-	long			tdie;
-	long			teat;
-	long			tthink;
+	double			tdie;
+	double			teat;
+	double			tthink;
 	long			tsleep;
 	long			times_eat;
 	long			times_to_eat;
@@ -46,6 +46,7 @@ typedef struct		s_philos
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*locks;
+	pthread_mutex_t *safe;
 
 }					t_philos;
 
