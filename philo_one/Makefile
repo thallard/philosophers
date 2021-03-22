@@ -1,35 +1,52 @@
-SRCS =	main.c lst_utils.c malloc_free_and_exit.c setters.c ft_atoi.c time.c
+OBJ_DIR	:= obj/
 
-OBJS = ${SRCS:.c=.o}
 
-HEADER = philo_one.h
+utils = utils
+main = main
+
+OBJ_DIRS = $(addprefix $(OBJ_DIR), $(utils) $(main))
+
+PRE_SRCS	=	main \
+				$(utils)/ft_atoi \
+				$(utils)/lst_utils \
+				$(utils)/malloc_free_and_exit \
+				$(utils)/init_mutex_and_threads \
+				$(utils)/time \
+				$(main)/actions
+
+OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(PRE_SRCS)))
 
 NAME = philo_one
-
-CC = gcc
-
+CC = clang
 RM = rm -f
 
-LIB=-lpthread
+# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
+INC = -I./includes 
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
+all:	$(NAME)
 
-%.o: %.c	${HEADER}
-			${CC} ${FLAGS} -c  $< -o ${<:.c=.o} 
+$(NAME): $(OBJ_DIRS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME) 
+	@echo "----- \e[32m $@ created\e[0m  -----"
+
+$(OBJ_DIRS):
+	mkdir -p $(OBJ_DIRS)
+
+$(OBJS) : includes/philo_one.h
+
+$(CHECKER_OBJS) : includes/philo_one.h
+
+$(OBJ_DIR)%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$@ \e[32mcreated\e[0m"
 
 
-$(NAME):	${OBJS}
-			${CC} $(FLAGS) ${OBJS} ${LIB} -o ${NAME}  
-
-all:		$(NAME)
-
-clean:
-			${RM} ${OBJS}
+clean:	
+	rm -rf $(OBJ_DIR) $(NAME)
 
 fclean:		clean
-			${RM} ${NAME}
 
-re: fclean all
+re:		fclean all
 
 .PHONY: all clean fclean re
-

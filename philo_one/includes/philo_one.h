@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 13:10:47 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 13:59:58 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,10 @@ pthread_mutex_t	*ft_fill_mutex(t_global *g);
 pthread_t	ft_create_thread(t_global *global);
 int	ft_fill_threads(t_global *global);
 
+/*
+* Actions
+*/
+int ft_take_forks(t_philos *p);
+void ft_sleep(t_philos *p);
+void ft_think(t_philos *p);
 #endif
