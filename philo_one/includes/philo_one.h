@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 13:59:58 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 14:36:00 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct		s_infos_philo
 	long			time_sleep;
 	long			nb_eat;
 }					t_infos_philo;
-
 
 typedef struct		s_philos
 {
@@ -95,4 +94,7 @@ int	ft_fill_threads(t_global *global);
 int ft_take_forks(t_philos *p);
 void ft_sleep(t_philos *p);
 void ft_think(t_philos *p);
+
+int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc);
+t_philos	*ft_init_philos(t_global *g, int pos);
 #endif

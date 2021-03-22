@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 14:03:40 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 17:31:10 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,39 +43,6 @@ int wait_threads(t_global *global)
 
 	return (1);
 }
-void ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv)
-{
-	info->nb_philo = ft_atoi(argv[1]);
-	info->time_die = ft_atoi(argv[2]);
-	info->time_eat = ft_atoi(argv[3]);
-	info->time_sleep = ft_atoi(argv[4]);
-	info->nb_eat = ft_atoi(argv[5]);
-	g->i = 0;
-	g->info = info;
-}
-
-t_philos *ft_init_philos(t_global *g, int pos)
-{
-	t_philos *p;
-
-	p = malloc_lst(sizeof(t_philos), g);
-	p->forks = g->forks;
-	p->locks = g->lock;
-	p->info = g->info;
-	p->safe = g->safe;
-	p->pos = pos + 1;
-	p->philos = g->philos;
-	p->thread = ft_create_thread(g);
-	p->times_eat = 0;
-	p->tsleep = 0;
-	p->tthink = 0;
-	p->alive = 1;
-	p->tdie = ft_time_g(g, 1) + g->info->time_die;
-	p->teat = 0;
-	p->start_sec = g->start_sec;
-	p->start_usec = g->start_usec;
-	return (p);
-}
 
 int check_eats(t_global *g)
 {
@@ -83,10 +50,18 @@ int check_eats(t_global *g)
 
 	j = -1;
 	while (++j < g->info->nb_philo)
+	{
+		// pthread_mutex_lock(&g->safe[j]);
 		if (g->philos[j]->times_eat != g->info->nb_eat)
+		{
+		//	dprintf(1, "debug %d et %ld\n", j, g->philos[j]->times_eat);
+			// pthread_mutex_unlock(&g->safe[j]);
 			return (0);
+		}
+			// pthread_mutex_unlock(&g->safe[j]);
+	}
+		
 	dprintf(1, "fin normale\n");
-
 	return (1);
 }
 
@@ -103,14 +78,12 @@ int are_alive(t_philos *p)
 	return (1);
 }
 
-
-
-void *main_loop(void *ptr)
+void	*main_loop(void *ptr)
 {
 	t_philos	*p;
 
 	p = ptr;
-	while (p->times_eat < p->info->nb_eat && p->times_eat != -1)
+	while (1)
 	{
 		if (p->tdie <= ft_time_p(p, 1))
 		{
@@ -118,11 +91,12 @@ void *main_loop(void *ptr)
 			return (NULL);
 		}
 		ft_take_forks(p);
-		if (p->times_eat >= p->info->nb_eat)
+		if (p->times_eat >= p->info->nb_eat && p->info->nb_eat != -1)
 			return (NULL);
 		ft_sleep(p);
 		ft_think(p);
-	}	return (NULL);
+	}
+	return (NULL);
 }
 
 int main(int argc, char **argv)
@@ -130,19 +104,20 @@ int main(int argc, char **argv)
 	t_infos_philo *info;
 	t_global *global;
 	struct timeval tv;
-
+	dprintf(1, "%d\n", argc);
 	global = malloc(sizeof(t_global));
 	info = malloc(sizeof(t_infos_philo));
 	global->lst_free = NULL;
 	gettimeofday(&tv, NULL);
 	global->start_usec = tv.tv_usec;
 	global->start_sec = tv.tv_sec;
-	if (argc > 6 || argc <= 5)
+	if (argc > 6 || argc <= 4)
 	{
 		printf("erreur de parametres\n");
 		return (0);
 	}
-	ft_init_infos_philo(info, global, argv);
+	if (!ft_init_infos_philo(info, global, argv, argc))
+	return (0);
 	ft_fill_threads(global);
 	global->forks = ft_fill_mutex(global);
 	global->lock = ft_fill_mutex(global);
@@ -154,6 +129,7 @@ int main(int argc, char **argv)
 	while (++i < info->nb_philo)
 	{
 		global->philos[i] = ft_init_philos(global, i);
+		global->i = i;
 		pthread_create(&global->philos[i]->thread, NULL, main_loop, (void *)global->philos[i]);
 		pthread_detach(global->philos[i]->thread);
 		pthread_join(global->philos[i]->thread, NULL);
@@ -170,16 +146,16 @@ int main(int argc, char **argv)
 				dprintf(1, "ils ont fini d emanger, fin du pgraomme\n");
 				return (0);
 			}
-
-			if (global->philos[i]->tdie <= ft_time_g(global, 1))
+			
+			if (!global->philos[i]->alive || global->philos[i]->tdie <= ft_time_g(global, 1))
 			{
-				dprintf(1, "\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", ft_time_g(global, 1), i + 1);
-				//printf("\e[33m%.f \e[96m%ld \033[0;31mdied\e[39m\n", ft_time_p(p, 1), p->pos);
+				printf("\e[33m%.f \e[96m%d \033[0;31mdieded\e[39m\n", ft_time_g(global, 1), i + 1);
+				
 				return (0);
 			}
+			
 		}
 	}
-	wait_threads(global);
-
+	// wait_threads(global);
 	dprintf(1, "[%ld] [%ld] [%ld] [%ld] [%ld]\n", global->info->nb_philo, info->time_die, info->time_eat, info->time_sleep, info->nb_eat);
 }

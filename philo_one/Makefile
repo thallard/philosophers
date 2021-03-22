@@ -12,7 +12,8 @@ PRE_SRCS	=	main \
 				$(utils)/malloc_free_and_exit \
 				$(utils)/init_mutex_and_threads \
 				$(utils)/time \
-				$(main)/actions
+				$(utils)/parsing_and_setters \
+				$(main)/actions 
 
 OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(PRE_SRCS)))
 
@@ -20,7 +21,7 @@ NAME = philo_one
 CC = clang
 RM = rm -f
 
-# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
 CFLAGS = -Wall -Wextra -Werror
 INC = -I./includes 
 
@@ -28,7 +29,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJ_DIRS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME) 
-	@echo "----- \e[32m $@ created\e[0m  -----"
+	@echo "----- \033[32m$@ created\033[0m  -----"
 
 $(OBJ_DIRS):
 	mkdir -p $(OBJ_DIRS)
@@ -39,7 +40,7 @@ $(CHECKER_OBJS) : includes/philo_one.h
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$@ \e[32mcreated\e[0m"
+	@echo "$@ \033[32mcreated\033[0m"
 
 
 clean:	
