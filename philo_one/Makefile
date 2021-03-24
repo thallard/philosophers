@@ -1,18 +1,18 @@
 OBJ_DIR	:= obj/
 
-
-utils = utils
+srcs = srcs
 main = main
 
-OBJ_DIRS = $(addprefix $(OBJ_DIR), $(utils) $(main))
+
+OBJ_DIRS = $(addprefix $(OBJ_DIR), $(srcs) $(main))
 
 PRE_SRCS	=	main \
-				$(utils)/ft_atoi \
-				$(utils)/lst_utils \
-				$(utils)/malloc_free_and_exit \
-				$(utils)/init_mutex_and_threads \
-				$(utils)/time \
-				$(utils)/parsing_and_setters \
+				$(srcs)/ft_atoi \
+				$(srcs)/lst_utils \
+				$(srcs)/malloc_free_and_exit \
+				$(srcs)/init_mutex_and_threads \
+				$(srcs)/time \
+				$(srcs)/parsing_and_setters \
 				$(main)/actions 
 
 OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(PRE_SRCS)))
