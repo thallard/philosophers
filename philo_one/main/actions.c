@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 17:15:12 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 16:12:54 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,42 @@
 
 int ft_take_forks(t_philos *p)
 {
-
-	pthread_mutex_lock(&p->locks[p->pos - 1]);
-	pthread_mutex_lock(&p->forks[p->pos - 1]);
-	pthread_mutex_lock(&p->forks[((p->pos - 1) % p->info->nb_philo) + 1]);
-	printf("\e[33m%.f \e[96m%ld \e[32mhas taken a fork %ld\e[39m\n", ft_time_p(p, 1), p->pos, p->pos);
-	printf("\e[33m%.f \e[96m%ld \e[32mhas taken a fork %ld\e[39m\n", ft_time_p(p, 1), p->pos, ((p->pos) % p->info->nb_philo) + 1);
-	printf("\e[33m%.f \e[96m%ld \e[33mis eating\e[39m\n", ft_time_p(p, 1), p->pos);
-	
-	p->tdie = ft_time_p(p, 1) + p->info->time_die;
-		
+	pthread_mutex_lock(&p->forks[p->pos]);
+	print_log(p, FORK);
+	pthread_mutex_lock(&p->forks[((p->pos) % p->info->nb_philo) + 1]);
+	print_log(p, FORK);
+	print_log(p, EAT);
+	p->tdie = ft_time_p(p, 1) + p->info->time_die + 10;
 	usleep(p->info->time_eat * 1000);
-	pthread_mutex_lock(&p->safe[p->pos - 1]);
-		p->times_eat++;
-	pthread_mutex_unlock(&p->safe[p->pos - 1]);
-	pthread_mutex_unlock(&p->forks[((p->pos - 1) % p->info->nb_philo) + 1]);
-	pthread_mutex_unlock(&p->forks[p->pos - 1]);
-	pthread_mutex_unlock(&p->locks[p->pos - 1]);
-
+	p->times_eat++;
+	pthread_mutex_unlock(&p->forks[p->pos]);
+	pthread_mutex_unlock(&p->forks[((p->pos) % p->info->nb_philo) + 1]);
 	return (0);
 }
 
 void ft_sleep(t_philos *p)
 {
-		pthread_mutex_lock(&p->locks[p->pos - 1]);
-	printf("\e[33m%.f \e[96m%ld is sleeping\e[39m\n", ft_time_p(p, 1), p->pos);
 
+	print_log(p, SLEEP);
 	usleep(p->info->time_sleep * 1000);
-	pthread_mutex_unlock(&p->locks[p->pos - 1]);
 }
 
 void ft_think(t_philos *p)
 {
-	pthread_mutex_lock(&p->safe[p->pos - 1]);
-	printf("\e[33m%.f \e[96m%ld \e[0;35mis thinking\e[39m\n", ft_time_p(p, 1), p->pos);
-	pthread_mutex_unlock(&p->safe[p->pos - 1]);
+	print_log(p, THINK);
+}
+
+void print_log(t_philos *p, int action)
+{
+	pthread_mutex_lock(&(p->mutex));
+	if (action == 1)
+		printf("\e[33m%.f \e[96m%ld \e[32mhas taken a fork\e[39m\n", ft_time_p(p, 1), p->pos + 1);
+	else if (action == 3)
+		printf("\e[33m%.f \e[96m%ld \e[33mis eating\e[39m\n", ft_time_p(p, 1), p->pos + 1);
+	else if (action == 4)
+		printf("\e[33m%.f \e[96m%ld is sleeping\e[39m\n", ft_time_p(p, 1), p->pos);
+	else if (action == 5)
+		printf("\e[33m%.f \e[96m%ld \e[0;35mis thinking\e[39m\n", ft_time_p(p, 1), p->pos);
+
+	pthread_mutex_unlock(&(p->mutex));
 }

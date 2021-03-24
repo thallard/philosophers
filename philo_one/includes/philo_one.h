@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 14:36:00 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 16:13:02 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
+
+#define FORK 1
+#define EAT 3
+#define SLEEP 4
+#define THINK 5
 
 typedef struct		s_infos_philo
 {
@@ -32,20 +37,13 @@ typedef struct		s_philos
 {
 	long			pos;
 	double			tdie;
-	double			teat;
-	double			tthink;
-	long			tsleep;
 	long			times_eat;
-	long			times_to_eat;
-	long			alive;
 	double			start_usec;
 	double			start_sec;
-	struct s_philos	**philos;
 	t_infos_philo	*info;
+	pthread_mutex_t mutex;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*locks;
-	pthread_mutex_t *safe;
 
 }					t_philos;
 
@@ -65,6 +63,7 @@ typedef struct		s_global
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*lock;
 	pthread_mutex_t	*safe;
+	pthread_mutex_t mutex;
 	int				i;
 	double			start_usec;
 	double			start_sec;
@@ -88,12 +87,15 @@ pthread_mutex_t	*ft_fill_mutex(t_global *g);
 pthread_t	ft_create_thread(t_global *global);
 int	ft_fill_threads(t_global *global);
 
+
+
 /*
 * Actions
 */
 int ft_take_forks(t_philos *p);
 void ft_sleep(t_philos *p);
 void ft_think(t_philos *p);
+void print_log(t_philos *p, int action);
 
 int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc);
 t_philos	*ft_init_philos(t_global *g, int pos);
