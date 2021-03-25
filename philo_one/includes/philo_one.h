@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:25:11 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 23:40:51 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,36 @@ typedef struct		s_global
 	double			start_sec;
 }					t_global;
 
-void	*malloc_lst(int size, t_global *global);
-void	*add_lst_to_free(t_global *global, void *ptr);
 
+// Utils
 long		ft_atoi(const char *str);
 double		ft_time_g(t_global *g, int boolstart);
 double		ft_time_p(t_philos *p, int boolstart);
+int			error_malloc(t_global *g, int free);
 
-
+// Linked list malloc
 t_malloc	*ft_lstmalloc_new(void *content);
 void		ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
 t_malloc	*ft_lstmalloc_last(t_malloc *lst);
 void		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
+void		*malloc_lst(int size, t_global *global);
+void		*add_lst_to_free(t_global *global, void *ptr);
 
+
+// Mutex, threads setters
 pthread_mutex_t	ft_create_fork(t_global *g);
 int				ft_fill_forks(t_global *g);
 pthread_mutex_t	*ft_fill_mutex(t_global *g);
 pthread_t		ft_create_thread(t_global *global);
 int				ft_fill_threads(t_global *global);
 
-
-
-/*
-* Actions
-*/
+// Actions
 int 	ft_take_forks(t_philos *p);
 void 	ft_sleep(t_philos *p);
 void 	ft_think(t_philos *p);
 void 	print_log(t_philos *p, int action);
 
+// Setters
 int			ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc);
 t_philos	*ft_init_philos(t_global *g, int pos);
 #endif
