@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/24 16:12:54 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 13:18:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int ft_take_forks(t_philos *p)
 {
-	pthread_mutex_lock(&p->forks[p->pos]);
+	// pthread_mutex_lock(&p->forks[p->pos]);
 	print_log(p, FORK);
-	pthread_mutex_lock(&p->forks[((p->pos) % p->info->nb_philo) + 1]);
+	// pthread_mutex_lock(&p->forks[((p->pos) % p->info->nb_philo) + 1]);
 	print_log(p, FORK);
 	print_log(p, EAT);
 	p->tdie = ft_time_p(p, 1) + p->info->time_die + 10;
 	usleep(p->info->time_eat * 1000);
 	p->times_eat++;
-	pthread_mutex_unlock(&p->forks[p->pos]);
-	pthread_mutex_unlock(&p->forks[((p->pos) % p->info->nb_philo) + 1]);
+	// pthread_mutex_unlock(&p->forks[p->pos]);
+	// pthread_mutex_unlock(&p->forks[((p->pos) % p->info->nb_philo) + 1]);
 	return (0);
 }
 
@@ -41,7 +41,7 @@ void ft_think(t_philos *p)
 
 void print_log(t_philos *p, int action)
 {
-	pthread_mutex_lock(&(p->mutex));
+	// pthread_mutex_lock(&(p->mutex));
 	if (action == 1)
 		printf("\e[33m%.f \e[96m%ld \e[32mhas taken a fork\e[39m\n", ft_time_p(p, 1), p->pos + 1);
 	else if (action == 3)
@@ -51,5 +51,5 @@ void print_log(t_philos *p, int action)
 	else if (action == 5)
 		printf("\e[33m%.f \e[96m%ld \e[0;35mis thinking\e[39m\n", ft_time_p(p, 1), p->pos);
 
-	pthread_mutex_unlock(&(p->mutex));
+	// pthread_mutex_unlock(&(p->mutex));
 }
