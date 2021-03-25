@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:22:20 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 23:32:21 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,13 @@ int loop_until_end_or_dead(t_global *global, t_infos_philo *info)
 
 int main(int argc, char **argv)
 {
-	t_infos_philo *info;
+	t_infos_philo	*info;
 	t_global		*global;
 
 	global = malloc(sizeof(t_global));
 	global->lst_free = NULL;
 	add_lst_to_free(global, (void*)global);
 	info = malloc_lst(sizeof(t_infos_philo), global);
-	
-
 	if (argc > 6 || argc <= 4 || !ft_init_infos_philo(info, global, argv, argc))
 	{
 		printf("\e[33mError : Invalid number of parameters.\e[0m\n");

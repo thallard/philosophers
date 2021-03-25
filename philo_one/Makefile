@@ -7,12 +7,10 @@ main = main
 OBJ_DIRS = $(addprefix $(OBJ_DIR), $(srcs) $(main))
 
 PRE_SRCS	=	main \
-				$(srcs)/ft_atoi \
+				$(srcs)/ft_atoi_and_malloc_free \
 				$(srcs)/lst_utils \
-				$(srcs)/malloc_free_and_exit \
 				$(srcs)/init_mutex_and_threads \
-				$(srcs)/time \
-				$(srcs)/parsing_and_setters \
+				$(srcs)/utils \
 				$(srcs)/actions 
 
 OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(PRE_SRCS)))
