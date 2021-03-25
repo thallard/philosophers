@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/24 18:50:13 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 18:23:26 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ typedef struct		s_philos
 	t_infos_philo	*info;
 	pthread_mutex_t mutex;
 	pthread_t		thread;
-	pthread_mutex_t	*forks;
+	sem_t	*forks;
 	sem_t			*sem;
+	struct s_global *global;
 }					t_philos;
 
 
@@ -61,11 +62,11 @@ typedef struct		s_global
 	t_malloc		*lst_free;
 	t_infos_philo	*info;
 	pthread_t		*threads;
-	pthread_mutex_t	*forks;
+	sem_t	*forks;
 	pthread_mutex_t	*lock;
 	pthread_mutex_t	*safe;
 	pthread_mutex_t mutex;
-	sem_t			sem;
+	sem_t			*sem;
 	int				i;
 	double			start_usec;
 	double			start_sec;

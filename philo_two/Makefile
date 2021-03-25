@@ -22,7 +22,7 @@ CC = clang
 RM = rm -f
 
 # CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 INC = -I./includes 
 
 all:	$(NAME)

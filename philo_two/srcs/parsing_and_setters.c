@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:48 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/24 15:52:01 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 17:04:11 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_philos	*ft_init_philos(t_global *g, int pos)
 	p->forks = g->forks;
 	p->info = g->info;
 	p->pos = pos;
+	p->global = g;
 	p->thread = ft_create_thread(g);
 	p->times_eat = 0;
 	p->tdie = ft_time_g(g, 1) + g->info->time_die;
