@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:48 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:16:08 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 21:47:12 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 		info->nb_eat = ft_atoi(argv[5]);
 	else
 		info->nb_eat = -1;
-	dprintf(1, "%ld\n", info->nb_eat);
+	g->i = 0;
 	g->info = info;
 	return (1);
 }
@@ -41,6 +41,7 @@ t_philos	*ft_init_philos(t_global *g, int pos)
 	p->forks = g->forks;
 	p->info = g->info;
 	p->pos = pos;
+	p->global = g;
 	p->thread = ft_create_thread(g);
 	p->times_eat = 0;
 	p->tdie = ft_time_g(g, 1) + g->info->time_die;

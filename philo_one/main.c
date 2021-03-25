@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/24 16:43:47 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 23:22:20 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int loop_until_end_or_dead(t_global *global, t_infos_philo *info)
 int main(int argc, char **argv)
 {
 	t_infos_philo *info;
-	t_global *global;
+	t_global		*global;
 
 	global = malloc(sizeof(t_global));
 	global->lst_free = NULL;
@@ -96,16 +96,12 @@ int main(int argc, char **argv)
 	info = malloc_lst(sizeof(t_infos_philo), global);
 	
 
-	if (argc > 6 || argc <= 4)
+	if (argc > 6 || argc <= 4 || !ft_init_infos_philo(info, global, argv, argc))
 	{
 		printf("\e[33mError : Invalid number of parameters.\e[0m\n");
+		ft_lstmalloc_clear(&global->lst_free, free);
 		return (0);
 	}
-	if (!ft_init_infos_philo(info, global, argv, argc))
-		return (0);
-
 	launch_routine(global, info);
 	loop_until_end_or_dead(global, info);
-
-	// dprintf(1, "[%ld] [%ld] [%ld] [%ld] [%ld]\n", global->info->nb_philo, info->time_die, info->time_eat, info->time_sleep, info->nb_eat);
 }

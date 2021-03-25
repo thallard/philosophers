@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:15:25 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 19:36:02 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
+#include <semaphore.h>
+#include <sys/types.h>
+#include <signal.h>
 
 #define FORK 1
 #define EAT 3
@@ -43,9 +46,11 @@ typedef struct		s_philos
 	t_infos_philo	*info;
 	pthread_mutex_t mutex;
 	pthread_t		thread;
-	pthread_mutex_t	*forks;
-
+	sem_t	*forks;
+	sem_t			*sem;
+	struct s_global *global;
 }					t_philos;
+
 
 typedef struct		s_malloc
 {
@@ -59,21 +64,26 @@ typedef struct		s_global
 	t_malloc		*lst_free;
 	t_infos_philo	*info;
 	pthread_t		*threads;
-	pthread_mutex_t	*forks;
+	sem_t	*forks;
+	pthread_mutex_t	*lock;
+	pthread_mutex_t	*safe;
 	pthread_mutex_t mutex;
+	sem_t			*sem;
+	int				i;
 	double			start_usec;
 	double			start_sec;
+	pid_t				*fork;
 }					t_global;
 
 void	*malloc_lst(int size, t_global *global);
 void	*add_lst_to_free(t_global *global, void *ptr);
 int		ft_exit(t_global *g);
 
-long				ft_atoi(const char *str);
+long		ft_atoi(const char *str);
 double		ft_time_g(t_global *g, int boolstart);
 double		ft_time_p(t_philos *p, int boolstart);
 t_malloc	*ft_lstmalloc_new(void *content);
-void	ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
+void		ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
 t_malloc	*ft_lstmalloc_last(t_malloc *lst);
 void		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
 

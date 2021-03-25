@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 18:23:26 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 19:22:16 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <semaphore.h>
+#include <sys/types.h>
+#include <signal.h>
 
 #define FORK 1
 #define EAT 3
@@ -72,23 +74,23 @@ typedef struct		s_global
 	double			start_sec;
 }					t_global;
 
-void	*malloc_lst(int size, t_global *global);
-void	*add_lst_to_free(t_global *global, void *ptr);
-int		ft_exit(t_global *g);
+void			*malloc_lst(int size, t_global *global);
+void			*add_lst_to_free(t_global *global, void *ptr);
+int				ft_exit(t_global *g);
 
-long		ft_atoi(const char *str);
-double		ft_time_g(t_global *g, int boolstart);
-double		ft_time_p(t_philos *p, int boolstart);
-t_malloc	*ft_lstmalloc_new(void *content);
-void		ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
-t_malloc	*ft_lstmalloc_last(t_malloc *lst);
-void		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
+long			ft_atoi(const char *str);
+double			ft_time_g(t_global *g, int boolstart);
+double			ft_time_p(t_philos *p, int boolstart);
+t_malloc		*ft_lstmalloc_new(void *content);
+void			ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
+t_malloc		*ft_lstmalloc_last(t_malloc *lst);
+void			ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
 
 pthread_mutex_t	ft_create_fork(t_global *g);
-int	ft_fill_forks(t_global *g);
+int				ft_fill_forks(t_global *g);
 pthread_mutex_t	*ft_fill_mutex(t_global *g);
-pthread_t	ft_create_thread(t_global *global);
-int	ft_fill_threads(t_global *global);
+pthread_t		ft_create_thread(t_global *global);
+int				ft_fill_threads(t_global *global);
 
 
 
