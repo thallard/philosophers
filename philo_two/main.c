@@ -6,28 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:59:09 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 00:18:06 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo_one.h"
 
-void	stopping(t_global *g)
-{
-	int		i;
 
-	i = -1;
-	sem_close(g->sem);
-	while (++i < g->info->nb_philo)
-	{
-		pthread_detach(g->philos[i]->thread);
-		sem_close(g->philos[i]->sem);
-		
-	}
-	sem_unlink("global");
-	sem_unlink("philo");
-	sem_unlink("fork");
-}
 
 void	*main_loop(void *ptr)
 {
