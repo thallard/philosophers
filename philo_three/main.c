@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 17:24:19 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 17:38:45 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*alive_or_finish_eat(void *ptr)
 	p = ptr;
 	while (1)
 	{
-		if (p->tdie <= ft_time_p(p, 1))
+		if (p->tdie < ft_time_p(p, 1))
 			exit(1);
 		else if (p->times_eat >= p->info->nb_eat && p->info->nb_eat != -1)
 			break ;
@@ -126,5 +126,6 @@ int	main(int argc, char **argv)
 	if (!launch_routine(g, info, -1))
 		return (ft_lstmalloc_clear(&g->lst_free, free, g));
 	wait_forks(g, info, -1);
+	quit(g);
 	return (1);
 }

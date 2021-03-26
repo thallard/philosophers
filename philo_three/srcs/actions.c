@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 17:05:17 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 17:43:55 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ft_take_forks(t_philos *p)
 	print_log(p, FORK);
 	sem_wait(p->global->forks);
 	print_log(p, FORK);
+	p->tdie = ft_time_p(p, 1) + p->info->time_die;
 	p->times_eat++;
 	print_log(p, EAT);
-	p->tdie = 5 + ft_time_p(p, 1) + p->info->time_die;
 	usleep(p->info->time_eat * 1000);
 	sem_post(p->global->forks);
 	sem_post(p->global->forks);
