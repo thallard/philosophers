@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:53:01 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 14:13:41 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 15:20:53 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	*add_lst_to_free(t_global *global, void *ptr)
 	return (ptr);
 }
 
-int		ft_exit(t_global *g)
+int	error_malloc(t_global *g, int freeall)
 {
-	ft_lstmalloc_clear(&g->lst_free, free);
-	printf("Error\n");
+	if (freeall)
+		ft_lstmalloc_clear(&g->lst_free, free, g);
+	printf("\e[31mError : A malloc has failed.\e[0m\n");
 	return (0);
 }

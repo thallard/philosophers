@@ -20,7 +20,7 @@ NAME = philo_two
 CC = clang
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 
 INC = -I./includes 
 
 all:	$(NAME)

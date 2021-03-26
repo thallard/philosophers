@@ -1,52 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mutex_and_threads.c                           :+:      :+:    :+:   */
+/*   atoi_and_forks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 13:00:28 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 17:13:21 by thallard         ###   ########lyon.fr   */
+/*   Created: 2021/02/25 16:10:32 by thallard          #+#    #+#             */
+/*   Updated: 2021/03/26 15:10:10 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_one.h"
 
-// pthread_mutex_t	ft_create_fork(t_global *g)
-// {
-// 	pthread_mutex_t		mutex;
+static int			ft_is_whitespace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f')
+		return (0);
+	else if (c == '\r')
+		return (0);
+	return (1);
+}
 
-// 	if (pthread_mutex_init(&mutex, NULL))
-// 		ft_exit(g);
-// 	return (mutex);
-// }
+static int			ft_str_is_numeric(char c)
+{
+	if (c < '0' || c > '9')
+		return (0);
+	return (1);
+}
 
-// int	ft_fill_forks(t_global *g)
-// {
-// 	int		i;
+long				ft_atoi(const char *str)
+{
+	long		nb;
+	long		signe;
+	long		i;
+	long		recur;
 
-// 	i = -1;
-// 	g->forks = malloc_lst(sizeof(pthread_mutex_t) * (g->info->nb_philo + 1), g);
-// 	if (!g->forks)
-// 		ft_exit(g);
-// 	while (++i < g->info->nb_philo)
-// 		g->forks[i] = ft_create_fork(g);
-// 	return (0);
-// }
-
-// pthread_mutex_t	*ft_fill_mutex(t_global *g)
-// {
-// 	int				i;
-// 	pthread_mutex_t	*forks;
-
-// 	i = -1;
-// 	forks = malloc_lst(sizeof(pthread_mutex_t) * (g->info->nb_philo + 1), g);
-// 	if (!forks)
-// 		ft_exit(g);
-// 	while (++i < g->info->nb_philo)
-// 		forks[i] = ft_create_fork(g);
-// 	return (forks);
-// }
+	recur = 0;
+	i = 0;
+	nb = 0;
+	signe = 1;
+	while (!ft_is_whitespace(str[i]))
+		i++;
+	while (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i++] == '-')
+			signe = -signe;
+		recur++;
+	}
+	if (recur >= 2)
+		return (0);
+	while (ft_str_is_numeric(str[i]))
+		nb = nb * 10 + (str[i++] - '0');
+	return (nb * signe);
+}
 
 pthread_t	ft_create_thread(t_global *global)
 {
@@ -54,7 +60,7 @@ pthread_t	ft_create_thread(t_global *global)
 
 	thread = malloc_lst(sizeof(pthread_t), global);
 	if (!thread)
-		ft_exit(global);
+		return (NULL);
 	return (thread);
 }
 
@@ -66,7 +72,7 @@ int	ft_fill_threads(t_global *global)
 	global->threads = malloc_lst(sizeof(pthread_t) 
 			 * (global->info->nb_philo + 2000), global);
 	if (!global->threads)
-		ft_exit(global);
+		return (0);
 	while (++i < global->info->nb_philo)
 		global->threads[i] = ft_create_thread(global);
 	global->threads[i] = NULL;
