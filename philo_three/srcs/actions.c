@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 17:43:55 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 23:41:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_take_forks(t_philos *p)
 {
+	sem_wait(p->sem);
 	sem_wait(p->global->forks);
 	print_log(p, FORK);
 	sem_wait(p->global->forks);
@@ -24,6 +25,7 @@ int	ft_take_forks(t_philos *p)
 	usleep(p->info->time_eat * 1000);
 	sem_post(p->global->forks);
 	sem_post(p->global->forks);
+	sem_post(p->sem);
 	return (0);
 }
 
@@ -35,13 +37,10 @@ void	ft_sleep(t_philos *p)
 	sem_post(p->sem);
 }
 
-void	ft_think(t_philos *p)
-{
-	print_log(p, THINK);
-}
 
 void	print_log(t_philos *p, int action)
 {
+	sem_wait(p->global->sem);
 	if (action == 1)
 		printf("\e[33m%.f \e[96m%ld \e[32mhas taken a fork\e[39m\n", \
 			ft_time_p(p, 1), p->pos + 1);
@@ -54,6 +53,7 @@ void	print_log(t_philos *p, int action)
 	else if (action == 5)
 		printf("\e[33m%.f \e[96m%ld \e[0;35mis thinking\e[39m\n", \
 			ft_time_p(p, 1), p->pos + 1);
+	sem_close(p->global->sem);
 }
 
 int	quit(t_global *g)

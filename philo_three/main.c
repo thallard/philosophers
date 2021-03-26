@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 17:38:45 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 23:45:20 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void	*alive_or_finish_eat(void *ptr)
 	return (NULL);
 }
 
-void	*main_loop(t_philos **p)
+void	*main_loop(t_philos *p)
 {
-	pthread_create(&(*p)->thread, NULL, alive_or_finish_eat, (void *)(*p));
-	pthread_detach((*p)->thread);
-	pthread_join((*p)->thread, NULL);
+	pthread_create(&p->thread, NULL, alive_or_finish_eat, (void *)p);
+	pthread_detach(p->thread);
+	pthread_join(p->thread, NULL);
 	while (1)
 	{
-		ft_take_forks(*p);
-		if ((*p)->times_eat >= (*p)->info->nb_eat && (*p)->info->nb_eat != -1)
+		print_log(p, THINK);
+		ft_take_forks(p);
+		if (p->times_eat >= p->info->nb_eat && p->info->nb_eat != -1)
 			break ;
-		ft_sleep(*p);
-		ft_think(*p);
+		ft_sleep(p);
 	}
 	exit(0);
 	return (NULL);
@@ -67,7 +67,7 @@ int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 			return (0);
 		g->fork[i] = fork();
 		if (!g->fork[i])
-			main_loop(&g->philos[i]);
+			main_loop(g->philos[i]);
 	}
 	return (1);
 }
@@ -95,7 +95,7 @@ int	wait_forks(t_global *g, t_infos_philo *info, int i)
 				kill(g->fork[i], SIGKILL);
 			else
 				printf("\e[33m%.f \e[96m%d \033[31mdied\e[39m\n", \
-					ft_time_g(g, 1), i + 1);
+					ft_time_p(g->philos[i], 1), i + 1);
 		}
 	}
 	return (0);
@@ -126,6 +126,6 @@ int	main(int argc, char **argv)
 	if (!launch_routine(g, info, -1))
 		return (ft_lstmalloc_clear(&g->lst_free, free, g));
 	wait_forks(g, info, -1);
-	quit(g);
+	// quit(g);
 	return (1);
 }
