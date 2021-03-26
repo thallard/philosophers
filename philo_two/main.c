@@ -6,13 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 13:51:48 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:54:21 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo_two.h"
 
-int		quit_program(t_global *g)
+int	quit(t_global *g)
 {
 	int		i;
 
@@ -45,7 +45,7 @@ void	*main_loop(void *ptr)
 	return (NULL);
 }
 
-int		launch_routine(t_global *g, t_infos_philo *inf, int i)
+int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 {
 	struct timeval	tv;
 
@@ -74,10 +74,10 @@ int		launch_routine(t_global *g, t_infos_philo *inf, int i)
 	return (1);
 }
 
-int loop_until_end_or_dead(t_global *global, t_infos_philo *info)
+int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
 {
-	int i;
-	int eat;
+	int	i;
+	int	eat;
 
 	while (1)
 	{
@@ -85,26 +85,25 @@ int loop_until_end_or_dead(t_global *global, t_infos_philo *info)
 		eat = 0;
 		while (++i < info->nb_philo)
 		{
-			if (global->philos[i]->times_eat == info->nb_eat)
-				eat++;	
-			if (global->philos[i]->tdie < ft_time_g(global, 1))
+			if (g->philos[i]->times_eat == info->nb_eat)
+				eat++;
+			if (g->philos[i]->tdie < ft_time_g(g, 1))
 			{
-				sem_wait(global->sem);
-				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", ft_time_g(global, 1), i + 1);
-				quit_program(global);
-				return (ft_lstmalloc_clear(&global->lst_free, free));
+				sem_wait(g->sem);
+				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", \
+					ft_time_g(g, 1), i + 1);
+				return (ft_lstmalloc_clear(&g->lst_free, free, g));
 			}
 			if (eat == info->nb_philo)
 			{
-				sem_wait(global->sem);
-				quit_program(global);
-				return (ft_lstmalloc_clear(&global->lst_free, free));
+				sem_wait(g->sem);
+				return (ft_lstmalloc_clear(&g->lst_free, free, g));
 			}
 		}
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_infos_philo	*info;
 	t_global		*global;
@@ -114,16 +113,15 @@ int main(int argc, char **argv)
 	sem_unlink("fork");
 	global = malloc(sizeof(t_global));
 	global->lst_free = NULL;
-	add_lst_to_free(global, global);
 	info = malloc_lst(sizeof(t_infos_philo), global);
 	if (argc > 6 || argc <= 4)
 	{
 		printf("\e[33mError : Invalid number/value of parameters.\e[0m\n");
-		return (ft_lstmalloc_clear(&global->lst_free, free));
+		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	}
 	if (!ft_init_infos_philo(info, global, argv, argc))
-		return (ft_lstmalloc_clear(&global->lst_free, free));
+		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	if (!launch_routine(global, info, -1))
-		return (error_malloc(global, 1));
+		return (quit(global) + error_malloc(global, 1));
 	loop_until_end_or_dead(global, info);
 }

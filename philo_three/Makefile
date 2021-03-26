@@ -20,7 +20,7 @@ CC = clang
 RM = rm -f
 
 # CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 INC = -I./includes 
 
 all:	$(NAME)
@@ -32,9 +32,9 @@ $(NAME): $(OBJ_DIRS) $(OBJS)
 $(OBJ_DIRS):
 	mkdir -p $(OBJ_DIRS)
 
-$(OBJS) : includes/philo_one.h
+$(OBJS) : includes/philo_three.h
 
-$(CHECKER_OBJS) : includes/philo_one.h
+$(CHECKER_OBJS) : includes/philo_three.h
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

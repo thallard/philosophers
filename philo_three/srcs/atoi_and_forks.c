@@ -6,13 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:10:32 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:10:10 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:39:37 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_three.h"
 
-static int			ft_is_whitespace(char c)
+static int	ft_is_whitespace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f')
 		return (0);
@@ -21,14 +21,14 @@ static int			ft_is_whitespace(char c)
 	return (1);
 }
 
-static int			ft_str_is_numeric(char c)
+static int	ft_str_is_numeric(char c)
 {
 	if (c < '0' || c > '9')
 		return (0);
 	return (1);
 }
 
-long				ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	long		nb;
 	long		signe;
@@ -51,6 +51,8 @@ long				ft_atoi(const char *str)
 		return (0);
 	while (ft_str_is_numeric(str[i]))
 		nb = nb * 10 + (str[i++] - '0');
+	if (nb >= 2147483648)
+		return (-1);
 	return (nb * signe);
 }
 
@@ -69,8 +71,8 @@ int	ft_fill_threads(t_global *global)
 	int		i;
 
 	i = -1;
-	global->threads = malloc_lst(sizeof(pthread_t) 
-			 * (global->info->nb_philo + 2000), global);
+	global->threads = malloc_lst(sizeof(pthread_t) \
+			 * (global->info->nb_philo + 2), global);
 	if (!global->threads)
 		return (0);
 	while (++i < global->info->nb_philo)

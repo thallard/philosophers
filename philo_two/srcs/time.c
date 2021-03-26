@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 14:45:14 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 11:32:23 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:20:35 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 double	ft_time_g(t_global *g, int boolstart)
 {
-	struct timeval end;
+	struct timeval	end;
 
-	gettimeofday (&end, NULL);
+	gettimeofday(&end, NULL);
 	if (boolstart)
-		return ((double)(end.tv_usec - g->start_usec) / 1000 + (double) (end.tv_sec - g->start_sec) * 1000);
+		return ((double)(end.tv_usec - g->start_usec) / 1000 + \
+		(double)(end.tv_sec - g->start_sec) *1000);
 	return (end.tv_usec);
 }
 
 double	ft_time_p(t_philos *p, int boolstart)
 {
-		struct timeval end;
+	struct timeval	end;
 
-	gettimeofday (&end, NULL);
+	gettimeofday(&end, NULL);
 	if (boolstart)
-		return ((double)(end.tv_usec - p->start_usec) / 1000 + (double) (end.tv_sec - p->start_sec) * 1000);
+		return ((double)(end.tv_usec - p->start_usec) / 1000 + \
+		(double)(end.tv_sec - p->start_sec) *1000);
 	return (end.tv_usec);
 }

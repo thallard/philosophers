@@ -6,58 +6,45 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:24:27 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 17:24:19 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/philo_one.h"
-
-int		quit(t_global *g)
-{
-	int		i;
-
-	sem_close(g->forks);
-	sem_close(g->sem);
-	i = -1;
-	while (++i < g->info->nb_philo)
-		sem_close(g->philos[i]->sem);
-	sem_unlink("global");
-	sem_unlink("fork");
-	sem_unlink("philo");
-	return (0);
-}
+#include "includes/philo_three.h"
 
 void	*alive_or_finish_eat(void *ptr)
 {
-	t_philos *p;
+	t_philos	*p;
 
 	p = ptr;
 	while (1)
-		if (p->tdie < ft_time_p(p, 1))
+	{
+		if (p->tdie <= ft_time_p(p, 1))
 			exit(1);
-		else if (p->times_eat >= p->info->nb_eat)
+		else if (p->times_eat >= p->info->nb_eat && p->info->nb_eat != -1)
 			break ;
+	}
 	return (NULL);
 }
 
 void	*main_loop(t_philos **p)
 {
-	pthread_create(&(*p)->thread, NULL, alive_or_finish_eat, (*p));
+	pthread_create(&(*p)->thread, NULL, alive_or_finish_eat, (void *)(*p));
 	pthread_detach((*p)->thread);
 	pthread_join((*p)->thread, NULL);
 	while (1)
 	{
-		ft_think(*p);
 		ft_take_forks(*p);
 		if ((*p)->times_eat >= (*p)->info->nb_eat && (*p)->info->nb_eat != -1)
 			break ;
 		ft_sleep(*p);
+		ft_think(*p);
 	}
 	exit(0);
 	return (NULL);
 }
 
-int		launch_routine(t_global *g, t_infos_philo *inf, int i)
+int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 {
 	struct timeval	tv;
 
@@ -85,13 +72,11 @@ int		launch_routine(t_global *g, t_infos_philo *inf, int i)
 	return (1);
 }
 
-int	wait_forks(t_global *g, t_infos_philo *info)
+int	wait_forks(t_global *g, t_infos_philo *info, int i)
 {
-	int		i;
 	int		return_value;
 	pid_t	tmp;
 
-	i = -1;
 	while (++i < info->nb_philo)
 	{
 		return_value = 0;
@@ -105,16 +90,18 @@ int	wait_forks(t_global *g, t_infos_philo *info)
 	{
 		i = -1;
 		while (++i < info->nb_philo)
+		{
 			if (tmp != g->fork[i])
 				kill(g->fork[i], SIGKILL);
 			else
 				printf("\e[33m%.f \e[96m%d \033[31mdied\e[39m\n", \
 					ft_time_g(g, 1), i + 1);
+		}
 	}
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_infos_philo	*info;
 	t_global		*g;
@@ -125,7 +112,7 @@ int main(int argc, char **argv)
 	g = malloc(sizeof(t_global));
 	if (!g)
 		return (error_malloc(NULL, 0));
-			g->lst_free = NULL;
+	g->lst_free = NULL;
 	info = malloc_lst(sizeof(t_infos_philo), g);
 	if (!info)
 		return (error_malloc(g, 1));
@@ -135,10 +122,9 @@ int main(int argc, char **argv)
 		return (ft_lstmalloc_clear(&g->lst_free, free, g));
 	}
 	if (!ft_init_infos_philo(info, g, argv, argc))
-		return (quit(g) + ft_lstmalloc_clear(&g->lst_free, free, g));
+		return (ft_lstmalloc_clear(&g->lst_free, free, g));
 	if (!launch_routine(g, info, -1))
-		return (quit(g) + ft_lstmalloc_clear(&g->lst_free, free, g));
-	wait_forks(g, info);
+		return (ft_lstmalloc_clear(&g->lst_free, free, g));
+	wait_forks(g, info, -1);
 	return (1);
 }
-

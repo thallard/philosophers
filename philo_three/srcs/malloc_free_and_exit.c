@@ -6,17 +6,18 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:53:01 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:20:53 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:38:38 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_three.h"
 
 void	*malloc_lst(int size, t_global *global)
 {
 	void		*ptr;
 
-	if (!(ptr = malloc(size)))
+	ptr = malloc(size);
+	if (!(ptr))
 		return (NULL);
 	if (!(add_lst_to_free(global, ptr)))
 		return (NULL);
@@ -27,7 +28,8 @@ void	*add_lst_to_free(t_global *global, void *ptr)
 {
 	t_malloc	*new;
 
-	if (!(new = ft_lstmalloc_new(ptr)))
+	new = ft_lstmalloc_new(ptr);
+	if (!(new))
 	{
 		free(ptr);
 		return (NULL);

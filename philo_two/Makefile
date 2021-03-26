@@ -6,10 +6,9 @@ main = main
 OBJ_DIRS = $(addprefix $(OBJ_DIR), $(srcs) $(main))
 
 PRE_SRCS	=	main \
-				$(srcs)/ft_atoi \
+				$(srcs)/init_threads_and_atoi \
 				$(srcs)/lst_utils \
 				$(srcs)/malloc_free_and_exit \
-				$(srcs)/init_mutex_and_threads \
 				$(srcs)/time \
 				$(srcs)/parsing_and_setters \
 				$(srcs)/actions 
@@ -20,7 +19,7 @@ NAME = philo_two
 CC = clang
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 INC = -I./includes 
 
 all:	$(NAME)

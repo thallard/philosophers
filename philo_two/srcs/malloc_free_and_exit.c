@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:53:01 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 12:57:54 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:22:42 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	*malloc_lst(int size, t_global *global)
 {
 	void		*ptr;
 
-	if (!(ptr = malloc(size)))
+	ptr = malloc(size);
+	if (!(ptr))
 		return (NULL);
 	if (!(add_lst_to_free(global, ptr)))
 		return (NULL);
@@ -27,7 +28,8 @@ void	*add_lst_to_free(t_global *global, void *ptr)
 {
 	t_malloc	*new;
 
-	if (!(new = ft_lstmalloc_new(ptr)))
+	new = ft_lstmalloc_new(ptr);
+	if (!(new))
 	{
 		free(ptr);
 		return (NULL);
@@ -36,19 +38,10 @@ void	*add_lst_to_free(t_global *global, void *ptr)
 	return (ptr);
 }
 
-int		ft_exit(t_global *g)
-{
-	ft_lstmalloc_clear(&g->lst_free, free);
-	printf("Error\n");
-	return (0);
-
-	
-}
-
 int	error_malloc(t_global *g, int freeall)
 {
 	if (freeall)
-		ft_lstmalloc_clear(&g->lst_free, free);
+		ft_lstmalloc_clear(&g->lst_free, free, g);
 	printf("\e[31mError : A malloc has failed.\e[0m\n");
 	return (0);
 }

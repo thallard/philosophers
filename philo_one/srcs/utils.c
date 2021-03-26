@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:48 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:54:21 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:58:54 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 	info->time_die = ft_atoi(argv[2]);
 	info->time_eat = ft_atoi(argv[3]);
 	info->time_sleep = ft_atoi(argv[4]);
-	if (info->nb_philo < 2 || info->time_die < 0 || info->time_eat < 0
-		|| info->time_sleep < 0)
+	if (info->nb_philo < 2 || info->time_die <= 0 || info->time_eat <= 0
+		|| info->time_sleep <= 0 || (argc == 6 && ft_atoi(argv[5]) <= 0))
 	{
 		printf("\e[0;31mError : A value is negative.\e[0m\n");
 		return (0);

@@ -3,7 +3,6 @@ OBJ_DIR	:= obj/
 srcs = srcs
 main = main
 
-
 OBJ_DIRS = $(addprefix $(OBJ_DIR), $(srcs) $(main))
 
 PRE_SRCS	=	main \
@@ -19,7 +18,6 @@ NAME = philo_one
 CC = clang
 RM = rm -f
 
-# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
 CFLAGS = -Wall -Wextra -Werror
 INC = -I./includes 
 

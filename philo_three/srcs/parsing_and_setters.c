@@ -6,13 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:48 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:12:22 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 17:24:33 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_three.h"
 
-int is_d(char *str)
+int	is_d(char *str)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ int is_d(char *str)
 int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 {
 	if (!is_d(argv[1]) || !is_d(argv[2]) || !is_d(argv[3]) || !is_d(argv[4]) \
-		|| (argc == 6 && !is_d(argv[5])))
+		 || (argc == 6 && !is_d(argv[5])))
 	{
 		printf("\e[0;31mError : Alphanumeric characters in parameters.\e[0m\n");
 		return (0);
@@ -35,13 +35,13 @@ int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 	info->time_die = ft_atoi(argv[2]);
 	info->time_eat = ft_atoi(argv[3]);
 	info->time_sleep = ft_atoi(argv[4]);
-	if (info->nb_philo < 2 || info->time_die < 0 || info->time_eat < 0
-		|| info->time_sleep < 0)
+	if (info->nb_philo < 2 || info->time_die <= 0 || info->time_eat <= 0
+		|| info->time_sleep <= 0 || (argc == 6 && ft_atoi(argv[5]) <= 0))
 	{
-		printf("\e[0;31mError : A value is negative.\e[0m\n");
+		printf("\e[0;31mError : A value is negative/incorrect.\e[0m\n");
 		return (0);
 	}
-	if (argc == 6 && ft_atoi(argv[5]) > 0)
+	if (argc == 6 && ft_atoi(argv[5]) >= 0)
 		info->nb_eat = ft_atoi(argv[5]);
 	else
 		info->nb_eat = -1;
@@ -51,7 +51,7 @@ int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 
 t_philos	*ft_init_philos(t_global *g, int pos)
 {
-	t_philos *p;
+	t_philos	*p;
 
 	p = malloc_lst(sizeof(t_philos), g);
 	p->forks = g->forks;
@@ -68,20 +68,22 @@ t_philos	*ft_init_philos(t_global *g, int pos)
 
 double	ft_time_g(t_global *g, int boolstart)
 {
-	struct timeval end;
+	struct timeval	end;
 
-	gettimeofday (&end, NULL);
+	gettimeofday(&end, NULL);
 	if (boolstart)
-		return ((double)(end.tv_usec - g->start_usec) / 1000 + (double) (end.tv_sec - g->start_sec) * 1000);
+		return ((double)(end.tv_usec - g->start_usec) / 1000 + \
+		(double)(end.tv_sec - g->start_sec) *1000);
 	return (end.tv_usec);
 }
 
 double	ft_time_p(t_philos *p, int boolstart)
 {
-		struct timeval end;
+	struct timeval	end;
 
-	gettimeofday (&end, NULL);
+	gettimeofday(&end, NULL);
 	if (boolstart)
-		return ((double)(end.tv_usec - p->start_usec) / 1000 + (double) (end.tv_sec - p->start_sec) * 1000);
+		return ((double)(end.tv_usec - p->start_usec) / 1000 + \
+		(double)(end.tv_sec - p->start_sec) *1000);
 	return (end.tv_usec);
 }

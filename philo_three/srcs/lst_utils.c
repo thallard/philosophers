@@ -6,17 +6,18 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:42:46 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 15:11:51 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:39:02 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_three.h"
 
 t_malloc	*ft_lstmalloc_new(void *content)
 {
 	t_malloc	*elem;
 
-	if (!(elem = malloc(sizeof(t_malloc))))
+	elem = malloc(sizeof(t_malloc));
+	if (!(elem))
 		return (NULL);
 	elem->content = content;
 	elem->next = NULL;
@@ -45,7 +46,7 @@ void	ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new)
 	}
 }
 
-int		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *), t_global *g)
+int	ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *), t_global *g)
 {
 	t_malloc	*elem;
 	t_malloc	*next;
