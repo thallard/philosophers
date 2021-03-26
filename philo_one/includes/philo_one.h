@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 11:58:24 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 15:49:21 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int					error_malloc(t_global *g, int free);
 t_malloc			*ft_lstmalloc_new(void *content);
 void				ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
 t_malloc			*ft_lstmalloc_last(t_malloc *lst);
-int					ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
+int					ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *), \
+										t_global *g);
 void				*malloc_lst(int size, t_global *global);
 void				*add_lst_to_free(t_global *global, void *ptr);
 

@@ -6,13 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:06:48 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 13:33:52 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 15:54:21 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_one.h"
 
-int is_d(char *str)
+int	is_d(char *str)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ int is_d(char *str)
 int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 {
 	if (!is_d(argv[1]) || !is_d(argv[2]) || !is_d(argv[3]) || !is_d(argv[4]) \
-		|| (argc == 6 && !is_d(argv[5])))
+		 || (argc == 6 && !is_d(argv[5])))
 	{
 		printf("\e[0;31mError : Alphanumeric characters in parameters.\e[0m\n");
 		return (0);
@@ -48,7 +48,6 @@ int	ft_init_infos_philo(t_infos_philo *info, t_global *g, char **argv, int argc)
 	g->info = info;
 	return (1);
 }
-
 
 t_philos	*ft_init_philos(t_global *g, int pos)
 {
@@ -86,12 +85,4 @@ double	ft_time_p(t_philos *p, int boolstart)
 		return ((double)(end.tv_usec - p->start_usec) / 1000 + \
 				(double)(end.tv_sec - p->start_sec) *1000);
 	return (end.tv_usec);
-}
-
-int	error_malloc(t_global *g, int freeall)
-{
-	if (freeall)
-		ft_lstmalloc_clear(&g->lst_free, free);
-	printf("\e[31mError : A malloc has failed.\e[0m\n");
-	return (0);
 }

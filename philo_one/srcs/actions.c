@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 10:33:58 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 15:54:14 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ void	print_log(t_philos *p, int action)
 		printf("\e[33m%.f \e[96m%ld \e[0;35mis thinking\e[39m\n", \
 		ft_time_p(p, 1), p->pos + 1);
 	pthread_mutex_unlock(&(p->mutex));
+}
+
+int	error_malloc(t_global *g, int freeall)
+{
+	if (freeall)
+		ft_lstmalloc_clear(&g->lst_free, free, g);
+	printf("\e[31mError : A malloc has failed.\e[0m\n");
+	return (0);
 }

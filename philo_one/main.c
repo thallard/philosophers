@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 11:03:25 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 15:48:56 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	loop_until_end_or_dead(t_global *global, t_infos_philo *info)
 				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", \
 				ft_time_g(global, 1), i + 1);
 				pthread_mutex_lock(&global->mutex);
-				return (ft_lstmalloc_clear(&global->lst_free, free));
+				return (ft_lstmalloc_clear(&global->lst_free, free, global));
 			}
 			if (eat == info->nb_philo)
 			{
 				pthread_mutex_lock(&global->mutex);
-				return (ft_lstmalloc_clear(&global->lst_free, free));
+				return (ft_lstmalloc_clear(&global->lst_free, free, global));
 			}
 		}
 	}
@@ -99,13 +99,14 @@ int	main(int argc, char **argv)
 	info = malloc_lst(sizeof(t_infos_philo), global);
 	if (!info)
 		return (error_malloc(global, 1));
-	if (argc > 6 || argc <= 4 || !ft_init_infos_philo(info, global, argv, argc))
+	if (argc > 6 || argc <= 4 )
 	{
 		printf("\e[33mError : Invalid number of parameters.\e[0m\n");
-		ft_lstmalloc_clear(&global->lst_free, free);
-		return (0);
+		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	}
+	if (!ft_init_infos_philo(info, global, argv, argc))
+		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	if (!launch_routine(global, info))
-		return (0);
+		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	loop_until_end_or_dead(global, info);
 }
