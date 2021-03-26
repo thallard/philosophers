@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:00:28 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:29:02 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 11:20:21 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_fill_threads(t_global *global)
 	int		i;
 
 	i = -1;
-	global->threads = malloc_lst(sizeof(pthread_t) 
+	global->threads = malloc_lst(sizeof(pthread_t) \
 			 * (global->info->nb_philo + 2), global);
 	if (!global->threads)
 		return (0);

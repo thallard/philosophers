@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:10:32 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 12:58:37 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 11:32:03 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_two.h"
 
 static int			ft_is_whitespace(char c)
 {

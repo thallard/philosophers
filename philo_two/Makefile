@@ -3,7 +3,6 @@ OBJ_DIR	:= obj/
 srcs = srcs
 main = main
 
-
 OBJ_DIRS = $(addprefix $(OBJ_DIR), $(srcs) $(main))
 
 PRE_SRCS	=	main \
@@ -17,12 +16,11 @@ PRE_SRCS	=	main \
 
 OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(PRE_SRCS)))
 
-NAME = philo_one
+NAME = philo_two
 CC = clang
 RM = rm -f
 
-# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 INC = -I./includes 
 
 all:	$(NAME)
@@ -34,14 +32,13 @@ $(NAME): $(OBJ_DIRS) $(OBJS)
 $(OBJ_DIRS):
 	mkdir -p $(OBJ_DIRS)
 
-$(OBJS) : includes/philo_one.h
+$(OBJS) : includes/philo_two.h
 
-$(CHECKER_OBJS) : includes/philo_one.h
+$(CHECKER_OBJS) : includes/philo_two.h
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$@ \033[32mcreated\033[0m"
-
 
 clean:	
 	rm -rf $(OBJ_DIR) $(NAME)

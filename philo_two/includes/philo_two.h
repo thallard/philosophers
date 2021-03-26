@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 19:22:16 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:34:47 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,15 @@ typedef struct		s_global
 	t_malloc		*lst_free;
 	t_infos_philo	*info;
 	pthread_t		*threads;
-	sem_t	*forks;
-	pthread_mutex_t	*lock;
-	pthread_mutex_t	*safe;
-	pthread_mutex_t mutex;
+	sem_t			*forks;
 	sem_t			*sem;
-	int				i;
 	double			start_usec;
 	double			start_sec;
 }					t_global;
 
 void			*malloc_lst(int size, t_global *global);
 void			*add_lst_to_free(t_global *global, void *ptr);
-int				ft_exit(t_global *g);
+int				error_malloc(t_global *g, int freeall);
 
 long			ft_atoi(const char *str);
 double			ft_time_g(t_global *g, int boolstart);
@@ -84,7 +80,7 @@ double			ft_time_p(t_philos *p, int boolstart);
 t_malloc		*ft_lstmalloc_new(void *content);
 void			ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new);
 t_malloc		*ft_lstmalloc_last(t_malloc *lst);
-void			ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
+int				ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *));
 
 pthread_mutex_t	ft_create_fork(t_global *g);
 int				ft_fill_forks(t_global *g);

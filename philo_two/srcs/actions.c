@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 18:13:42 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 11:54:58 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_two.h"
 
 int ft_take_forks(t_philos *p)
 {
@@ -20,7 +20,7 @@ int ft_take_forks(t_philos *p)
 	print_log(p, FORK);
 	p->times_eat++;
 	print_log(p, EAT);
-	p->tdie = ft_time_p(p, 1) + p->info->time_die + 10;
+	p->tdie = 5 + ft_time_p(p, 1) + p->info->time_die;
 	usleep(p->info->time_eat * 1000);
 	sem_post(p->global->forks);
 	sem_post(p->global->forks);

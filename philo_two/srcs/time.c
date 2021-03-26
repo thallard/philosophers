@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 14:45:14 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 12:58:11 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 11:32:23 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_two.h"
 
 double	ft_time_g(t_global *g, int boolstart)
 {

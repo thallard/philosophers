@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:45:41 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 11:03:25 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	*main_loop(void *ptr)
 	return (NULL);
 }
 
-int loop_until_end_or_dead(t_global *global, t_infos_philo *info)
+int	loop_until_end_or_dead(t_global *global, t_infos_philo *info)
 {
-	int i;
-	int eat;
+	int		i;
+	int		eat;
 
 	while (1)
 	{
@@ -42,25 +42,24 @@ int loop_until_end_or_dead(t_global *global, t_infos_philo *info)
 		while (++i < info->nb_philo)
 		{
 			if (global->philos[i]->times_eat == info->nb_eat)
-				eat++;	
+				eat++;
 			if (global->philos[i]->tdie < ft_time_g(global, 1))
 			{
-				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", ft_time_g(global, 1), i + 1);
+				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", \
+				ft_time_g(global, 1), i + 1);
 				pthread_mutex_lock(&global->mutex);
-				ft_lstmalloc_clear(&global->lst_free, free);
-				return (0);
+				return (ft_lstmalloc_clear(&global->lst_free, free));
 			}
 			if (eat == info->nb_philo)
 			{
 				pthread_mutex_lock(&global->mutex);
-				ft_lstmalloc_clear(&global->lst_free, free);
-				return (0);
+				return (ft_lstmalloc_clear(&global->lst_free, free));
 			}
 		}
 	}
 }
 
-void		launch_routine(t_global *g, t_infos_philo *inf)
+int	launch_routine(t_global *g, t_infos_philo *inf)
 {
 	int				i;
 	struct timeval	tv;
@@ -70,6 +69,8 @@ void		launch_routine(t_global *g, t_infos_philo *inf)
 	pthread_mutex_init(&g->mutex, NULL);
 	g->forks = ft_fill_mutex(g);
 	g->philos = malloc_lst(sizeof(t_philos *) * (inf->nb_philo + 1), g);
+	if (!g->philos)
+		return (error_malloc(g, 1));
 	while (++i < inf->nb_philo)
 	{
 		gettimeofday(&tv, NULL);
@@ -77,14 +78,16 @@ void		launch_routine(t_global *g, t_infos_philo *inf)
 		g->start_sec = tv.tv_sec;
 		g->philos[i] = ft_init_philos(g, i);
 		pthread_mutex_init(&(g->philos[i]->mutex), NULL);
-		pthread_create(&g->philos[i]->thread, NULL, main_loop, (void *)g->philos[i]);
+		pthread_create(&g->philos[i]->thread, NULL, main_loop, \
+			(void *)g->philos[i]);
 		pthread_detach(g->philos[i]->thread);
 		pthread_join(g->philos[i]->thread, NULL);
 		usleep(20);
 	}
+	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_infos_philo	*info;
 	t_global		*global;
@@ -93,8 +96,6 @@ int main(int argc, char **argv)
 	if (!global)
 		return (error_malloc(NULL, 0));
 	global->lst_free = NULL;
-	// if (!add_lst_to_free(global, (void*)global))
-	// 	return (error_malloc(global, 1));
 	info = malloc_lst(sizeof(t_infos_philo), global);
 	if (!info)
 		return (error_malloc(global, 1));
@@ -104,6 +105,7 @@ int main(int argc, char **argv)
 		ft_lstmalloc_clear(&global->lst_free, free);
 		return (0);
 	}
-	launch_routine(global, info);
+	if (!launch_routine(global, info))
+		return (0);
 	loop_until_end_or_dead(global, info);
 }

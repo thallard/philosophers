@@ -6,13 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:10:32 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/25 23:26:59 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:52:48 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_one.h"
 
-static int			ft_is_whitespace(char c)
+static int	ft_is_whitespace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f')
 		return (0);
@@ -21,14 +21,14 @@ static int			ft_is_whitespace(char c)
 	return (1);
 }
 
-static int			ft_str_is_numeric(char c)
+static int	ft_str_is_numeric(char c)
 {
 	if (c < '0' || c > '9')
 		return (0);
 	return (1);
 }
 
-long				ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	long		nb;
 	long		signe;
@@ -58,7 +58,8 @@ void	*malloc_lst(int size, t_global *global)
 {
 	void		*ptr;
 
-	if (!(ptr = malloc(size)))
+	ptr = malloc(size);
+	if (!(ptr))
 		return (NULL);
 	if (!(add_lst_to_free(global, ptr)))
 		return (NULL);
@@ -69,7 +70,8 @@ void	*add_lst_to_free(t_global *global, void *ptr)
 {
 	t_malloc	*new;
 
-	if (!(new = ft_lstmalloc_new(ptr)))
+	new = ft_lstmalloc_new(ptr);
+	if (!(new))
 	{
 		free(ptr);
 		return (NULL);

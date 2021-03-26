@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:42:46 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/22 12:58:28 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 12:04:00 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo_one.h"
+#include "../includes/philo_two.h"
 
 t_malloc	*ft_lstmalloc_new(void *content)
 {
@@ -45,7 +45,7 @@ void	ft_lstmalloc_add_back(t_malloc **alst, t_malloc *new)
 	}
 }
 
-void		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *))
+int	ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *))
 {
 	t_malloc	*elem;
 	t_malloc	*next;
@@ -60,4 +60,5 @@ void		ft_lstmalloc_clear(t_malloc **lst, void (*del)(void *))
 		elem = next;
 	}
 	*lst = NULL;
+	return (0);
 }
