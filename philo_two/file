@@ -1,0 +1,167 @@
+[33m0 [96m1 [0;35mis thinking[39m
+[33m0 [96m1 [32mhas taken a fork[39m
+[33m0 [96m1 [32mhas taken a fork[39m
+[33m0 [96m1 [33mis eating[39m
+[33m0 [96m2 [0;35mis thinking[39m
+[33m0 [96m2 [32mhas taken a fork[39m
+[33m0 [96m2 [32mhas taken a fork[39m
+[33m0 [96m2 [33mis eating[39m
+[33m0 [96m3 [0;35mis thinking[39m
+[33m0 [96m3 [32mhas taken a fork[39m
+[33m0 [96m4 [0;35mis thinking[39m
+[33m0 [96m5 [0;35mis thinking[39m
+[33m202 [96m1 is sleeping[39m
+[33m202 [96m3 [32mhas taken a fork[39m
+[33m202 [96m3 [33mis eating[39m
+[33m202 [96m4 [32mhas taken a fork[39m
+[33m202 [96m5 [32mhas taken a fork[39m
+[33m202 [96m2 is sleeping[39m
+[33m202 [96m4 [32mhas taken a fork[39m
+[33m202 [96m4 [33mis eating[39m
+[33m404 [96m3 is sleeping[39m
+[33m404 [96m4 is sleeping[39m
+[33m404 [96m5 [32mhas taken a fork[39m
+[33m404 [96m5 [33mis eating[39m
+[33m407 [96m1 [0;35mis thinking[39m
+[33m407 [96m2 [0;35mis thinking[39m
+[33m407 [96m1 [32mhas taken a fork[39m
+[33m407 [96m2 [32mhas taken a fork[39m
+[33m407 [96m1 [32mhas taken a fork[39m
+[33m407 [96m1 [33mis eating[39m
+[33m607 [96m3 [0;35mis thinking[39m
+[33m607 [96m4 [0;35mis thinking[39m
+[33m607 [96m5 is sleeping[39m
+[33m607 [96m2 [32mhas taken a fork[39m
+[33m607 [96m2 [33mis eating[39m
+[33m607 [96m4 [32mhas taken a fork[39m
+[33m607 [96m4 [32mhas taken a fork[39m
+[33m607 [96m4 [33mis eating[39m
+[33m607 [96m3 [32mhas taken a fork[39m
+[33m607 [96m1 is sleeping[39m
+[33m807 [96m5 [0;35mis thinking[39m
+[33m807 [96m2 is sleeping[39m
+[33m807 [96m4 is sleeping[39m
+[33m807 [96m5 [32mhas taken a fork[39m
+[33m807 [96m5 [32mhas taken a fork[39m
+[33m807 [96m5 [33mis eating[39m
+[33m807 [96m3 [32mhas taken a fork[39m
+[33m807 [96m3 [33mis eating[39m
+[33m807 [96m1 [0;35mis thinking[39m
+[33m807 [96m1 [32mhas taken a fork[39m
+[33m1007 [96m2 [0;35mis thinking[39m
+[33m1008 [96m4 [0;35mis thinking[39m
+[33m1008 [96m5 is sleeping[39m
+[33m1008 [96m1 [32mhas taken a fork[39m
+[33m1008 [96m4 [32mhas taken a fork[39m
+[33m1008 [96m3 is sleeping[39m
+[33m1008 [96m2 [32mhas taken a fork[39m
+[33m1008 [96m1 [33mis eating[39m
+[33m1008 [96m4 [32mhas taken a fork[39m
+[33m1008 [96m4 [33mis eating[39m
+[33m1208 [96m5 [0;35mis thinking[39m
+[33m1208 [96m3 [0;35mis thinking[39m
+[33m1208 [96m4 is sleeping[39m
+[33m1208 [96m2 [32mhas taken a fork[39m
+[33m1208 [96m2 [33mis eating[39m
+[33m1208 [96m5 [32mhas taken a fork[39m
+[33m1208 [96m5 [32mhas taken a fork[39m
+[33m1208 [96m5 [33mis eating[39m
+[33m1208 [96m3 [32mhas taken a fork[39m
+[33m1208 [96m1 is sleeping[39m
+[33m1408 [96m2 is sleeping[39m
+[33m1408 [96m4 [0;35mis thinking[39m
+[33m1408 [96m4 [32mhas taken a fork[39m
+[33m1408 [96m1 [0;35mis thinking[39m
+[33m1408 [96m5 is sleeping[39m
+[33m1408 [96m1 [32mhas taken a fork[39m
+[33m1408 [96m4 [32mhas taken a fork[39m
+[33m1408 [96m4 [33mis eating[39m
+[33m1408 [96m3 [32mhas taken a fork[39m
+[33m1408 [96m3 [33mis eating[39m
+[33m1612 [96m3 is sleeping[39m
+[33m1612 [96m1 [32mhas taken a fork[39m
+[33m1612 [96m1 [33mis eating[39m
+[33m1612 [96m2 [0;35mis thinking[39m
+[33m1612 [96m2 [32mhas taken a fork[39m
+[33m1612 [96m5 [0;35mis thinking[39m
+[33m1612 [96m4 is sleeping[39m
+[33m1612 [96m2 [32mhas taken a fork[39m
+[33m1612 [96m2 [33mis eating[39m
+[33m1612 [96m5 [32mhas taken a fork[39m
+[33m1814 [96m3 [0;35mis thinking[39m
+[33m1814 [96m1 is sleeping[39m
+[33m1814 [96m4 [0;35mis thinking[39m
+[33m1814 [96m2 is sleeping[39m
+[33m1814 [96m5 [32mhas taken a fork[39m
+[33m1814 [96m4 [32mhas taken a fork[39m
+[33m1814 [96m4 [32mhas taken a fork[39m
+[33m1814 [96m4 [33mis eating[39m
+[33m1814 [96m5 [33mis eating[39m
+[33m1814 [96m3 [32mhas taken a fork[39m
+[33m2014 [96m1 [0;35mis thinking[39m
+[33m2015 [96m2 [0;35mis thinking[39m
+[33m2015 [96m4 is sleeping[39m
+[33m2015 [96m5 is sleeping[39m
+[33m2015 [96m3 [32mhas taken a fork[39m
+[33m2015 [96m3 [33mis eating[39m
+[33m2015 [96m1 [32mhas taken a fork[39m
+[33m2015 [96m1 [32mhas taken a fork[39m
+[33m2015 [96m1 [33mis eating[39m
+[33m2015 [96m2 [32mhas taken a fork[39m
+[33m2220 [96m4 [0;35mis thinking[39m
+[33m2220 [96m5 [0;35mis thinking[39m
+[33m2220 [96m3 is sleeping[39m
+[33m2220 [96m1 is sleeping[39m
+[33m2220 [96m4 [32mhas taken a fork[39m
+[33m2220 [96m5 [32mhas taken a fork[39m
+[33m2220 [96m4 [32mhas taken a fork[39m
+[33m2220 [96m4 [33mis eating[39m
+[33m2220 [96m2 [32mhas taken a fork[39m
+[33m2220 [96m2 [33mis eating[39m
+[33m2424 [96m3 [0;35mis thinking[39m
+[33m2425 [96m1 [0;35mis thinking[39m
+[33m2424 [96m4 is sleeping[39m
+[33m2425 [96m3 [32mhas taken a fork[39m
+[33m2424 [96m5 [32mhas taken a fork[39m
+[33m2424 [96m5 [33mis eating[39m
+[33m2425 [96m2 is sleeping[39m
+[33m2425 [96m3 [32mhas taken a fork[39m
+[33m2425 [96m3 [33mis eating[39m
+[33m2425 [96m1 [32mhas taken a fork[39m
+[33m2625 [96m4 [0;35mis thinking[39m
+[33m2625 [96m2 [0;35mis thinking[39m
+[33m2625 [96m5 is sleeping[39m
+[33m2625 [96m1 [32mhas taken a fork[39m
+[33m2625 [96m1 [33mis eating[39m
+[33m2625 [96m4 [32mhas taken a fork[39m
+[33m2625 [96m4 [32mhas taken a fork[39m
+[33m2625 [96m4 [33mis eating[39m
+[33m2625 [96m2 [32mhas taken a fork[39m
+[33m2625 [96m3 is sleeping[39m
+[33m2830 [96m5 [0;35mis thinking[39m
+[33m2830 [96m1 is sleeping[39m
+[33m2830 [96m3 [0;35mis thinking[39m
+[33m2830 [96m3 [32mhas taken a fork[39m
+[33m2830 [96m3 [32mhas taken a fork[39m
+[33m2830 [96m3 [33mis eating[39m
+[33m2830 [96m2 [32mhas taken a fork[39m
+[33m2830 [96m2 [33mis eating[39m
+[33m2830 [96m5 [32mhas taken a fork[39m
+[33m3034 [96m1 [0;35mis thinking[39m
+[33m3034 [96m3 is sleeping[39m
+[33m3034 [96m2 is sleeping[39m
+[33m3034 [96m1 [32mhas taken a fork[39m
+[33m3034 [96m5 [32mhas taken a fork[39m
+[33m3034 [96m1 [32mhas taken a fork[39m
+[33m3034 [96m1 [33mis eating[39m
+[33m3034 [96m5 [33mis eating[39m
+[33m3237 [96m3 [0;35mis thinking[39m
+[33m3237 [96m3 [32mhas taken a fork[39m
+[33m3237 [96m2 [0;35mis thinking[39m
+[33m3237 [96m2 [32mhas taken a fork[39m
+[33m3237 [96m5 is sleeping[39m
+[33m3237 [96m3 [32mhas taken a fork[39m
+[33m3237 [96m3 [33mis eating[39m
+[33m3237 [96m2 [32mhas taken a fork[39m
+[33m3237 [96m2 [33mis eating[39m
+[33m3430 [96m4 [0;31mdied[39m

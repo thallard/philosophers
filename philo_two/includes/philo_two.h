@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:55:42 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 16:27:02 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 15:04:25 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define EAT 3
 # define SLEEP 4
 # define THINK 5
+
+int g_last;
 
 typedef struct s_infos_philo
 {

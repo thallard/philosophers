@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 16:54:21 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 15:22:42 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 	struct timeval	tv;
 
 	g->sem = sem_open("global", 1);
-	g->forks = sem_open("fork", O_CREAT, 432, inf->nb_philo);
+	// if (inf->nb_philo % 2 != 0)
+	// 	g->forks = sem_open("fork", O_CREAT, 432, inf->nb_philo + 1);
+	// else
+		g->forks = sem_open("fork", O_CREAT, 432, inf->nb_philo);
 	g->philos = malloc_lst(sizeof(t_philos *) * (inf->nb_philo + 1), g);
 	if (!g->philos || !ft_fill_threads(g) || !g->sem || !g->forks)
 		return (0);
@@ -69,7 +72,7 @@ int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 			(void *)g->philos[i]);
 		pthread_detach(g->philos[i]->thread);
 		pthread_join(g->philos[i]->thread, NULL);
-		usleep(200);
+		usleep(20);
 	}
 	return (1);
 }
@@ -87,7 +90,7 @@ int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
 		{
 			if (g->philos[i]->times_eat == info->nb_eat)
 				eat++;
-			if (g->philos[i]->tdie < ft_time_g(g, 1))
+			if (g->philos[i]->tdie < ft_time_g(g, 1) && g->philos[i]->times_eat != g->info->nb_eat)
 			{
 				sem_wait(g->sem);
 				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", \
@@ -96,6 +99,7 @@ int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
 			}
 			if (eat == info->nb_philo)
 			{
+				
 				sem_wait(g->sem);
 				return (ft_lstmalloc_clear(&g->lst_free, free, g));
 			}
@@ -111,6 +115,7 @@ int	main(int argc, char **argv)
 	sem_unlink("global");
 	sem_unlink("philo");
 	sem_unlink("fork");
+	g_last = 1;
 	global = malloc(sizeof(t_global));
 	global->lst_free = NULL;
 	info = malloc_lst(sizeof(t_infos_philo), global);
