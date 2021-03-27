@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 23:41:39 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 10:54:56 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_sleep(t_philos *p)
 	usleep(p->info->time_sleep * 1000);
 	sem_post(p->sem);
 }
-
 
 void	print_log(t_philos *p, int action)
 {

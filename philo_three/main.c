@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 23:45:20 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 11:08:22 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 int	wait_forks(t_global *g, t_infos_philo *info, int i)
 {
 	int		return_value;
-	pid_t	tmp;
+	pid_t	pid;
 
 	while (++i < info->nb_philo)
 	{
 		return_value = 0;
-		tmp = -1;
-		while (!return_value && tmp <= 0)
-			tmp = waitpid(-1, &return_value, 0);
+		pid = -1;
+		while (!return_value && pid <= 0)
+			pid = waitpid(-1, &return_value, 0);
 		if (WEXITSTATUS(return_value))
 			break ;
 	}
@@ -91,7 +91,7 @@ int	wait_forks(t_global *g, t_infos_philo *info, int i)
 		i = -1;
 		while (++i < info->nb_philo)
 		{
-			if (tmp != g->fork[i])
+			if (pid != g->fork[i])
 				kill(g->fork[i], SIGKILL);
 			else
 				printf("\e[33m%.f \e[96m%d \033[31mdied\e[39m\n", \
@@ -126,6 +126,6 @@ int	main(int argc, char **argv)
 	if (!launch_routine(g, info, -1))
 		return (ft_lstmalloc_clear(&g->lst_free, free, g));
 	wait_forks(g, info, -1);
-	// quit(g);
+	quit(g);
 	return (1);
 }

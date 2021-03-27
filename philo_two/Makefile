@@ -19,7 +19,7 @@ NAME = philo_two
 CC = clang
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 INC = -I./includes 
 
 all:	$(NAME)

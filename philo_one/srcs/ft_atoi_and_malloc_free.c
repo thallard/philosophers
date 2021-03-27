@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:10:32 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/26 10:52:48 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 11:02:21 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ long	ft_atoi(const char *str)
 		return (0);
 	while (ft_str_is_numeric(str[i]))
 		nb = nb * 10 + (str[i++] - '0');
+	if (nb >= 2147483648)
+		return (-1);
 	return (nb * signe);
 }
 
