@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/27 15:27:16 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:08:00 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	*main_loop(void *ptr)
 	return (NULL);
 }
 
-int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
+int	loop_until_end_or_dead(t_global *g, t_infos_philo *info, int i)
 {
-	int		i;
 	int		eat;
 
 	while (1)
@@ -43,7 +42,8 @@ int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
 		{
 			if (g->philos[i]->times_eat == info->nb_eat)
 				eat++;
-			if (g->philos[i]->tdie < ft_time_g(g, 1) && g->philos[i]->times_eat != g->info->nb_eat)
+			if (g->philos[i]->tdie < ft_time_g(g, 1) && \
+				g->philos[i]->times_eat != g->info->nb_eat)
 			{
 				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", \
 				ft_time_g(g, 1), i + 1);
@@ -108,5 +108,5 @@ int	main(int argc, char **argv)
 		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	if (!launch_routine(global, info))
 		return (ft_lstmalloc_clear(&global->lst_free, free, global));
-	loop_until_end_or_dead(global, info);
+	loop_until_end_or_dead(global, info, -1);
 }

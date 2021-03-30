@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/27 11:08:22 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:00:27 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*alive_or_finish_eat(void *ptr)
 	p = ptr;
 	while (1)
 	{
-		if (p->tdie < ft_time_p(p, 1))
+		if (p->tdie < ft_time_p(p, 1) && p->times_eat != p->info->nb_eat)
 			exit(1);
 		else if (p->times_eat >= p->info->nb_eat && p->info->nb_eat != -1)
 			break ;

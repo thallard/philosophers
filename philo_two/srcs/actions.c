@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:58:33 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/27 15:19:43 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:09:27 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 int	ft_take_forks(t_philos *p)
 {
-	// while (g_last == p->pos + 1)
-	// 	if (p->tdie >= ft_time_p(p, 1) - 100)
-	// 		break ;
-	// g_last = p->pos + 1;
-	
 	sem_wait(p->global->forks);
 	print_log(p, FORK);
 	sem_wait(p->global->forks);
@@ -29,16 +24,13 @@ int	ft_take_forks(t_philos *p)
 	usleep(p->info->time_eat * 1000);
 	sem_post(p->global->forks);
 	sem_post(p->global->forks);
-
 	return (0);
 }
 
 void	ft_sleep(t_philos *p)
 {
-	
 	print_log(p, SLEEP);
 	usleep(p->info->time_sleep * 1000);
-
 }
 
 void	ft_think(t_philos *p)

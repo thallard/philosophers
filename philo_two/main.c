@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/27 15:22:42 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:08:51 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 	struct timeval	tv;
 
 	g->sem = sem_open("global", 1);
-	// if (inf->nb_philo % 2 != 0)
-	// 	g->forks = sem_open("fork", O_CREAT, 432, inf->nb_philo + 1);
-	// else
-		g->forks = sem_open("fork", O_CREAT, 432, inf->nb_philo);
+	g->forks = sem_open("fork", O_CREAT, 432, inf->nb_philo);
 	g->philos = malloc_lst(sizeof(t_philos *) * (inf->nb_philo + 1), g);
 	if (!g->philos || !ft_fill_threads(g) || !g->sem || !g->forks)
 		return (0);
@@ -77,9 +74,8 @@ int	launch_routine(t_global *g, t_infos_philo *inf, int i)
 	return (1);
 }
 
-int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
+int	loop_until_end_or_dead(t_global *g, t_infos_philo *info, int i)
 {
-	int	i;
 	int	eat;
 
 	while (1)
@@ -90,7 +86,8 @@ int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
 		{
 			if (g->philos[i]->times_eat == info->nb_eat)
 				eat++;
-			if (g->philos[i]->tdie < ft_time_g(g, 1) && g->philos[i]->times_eat != g->info->nb_eat)
+			if (g->philos[i]->tdie < ft_time_g(g, 1) && \
+				g->philos[i]->times_eat != g->info->nb_eat)
 			{
 				sem_wait(g->sem);
 				printf("\e[33m%.f \e[96m%d \033[0;31mdied\e[39m\n", \
@@ -99,7 +96,6 @@ int	loop_until_end_or_dead(t_global *g, t_infos_philo *info)
 			}
 			if (eat == info->nb_philo)
 			{
-				
 				sem_wait(g->sem);
 				return (ft_lstmalloc_clear(&g->lst_free, free, g));
 			}
@@ -128,5 +124,5 @@ int	main(int argc, char **argv)
 		return (ft_lstmalloc_clear(&global->lst_free, free, global));
 	if (!launch_routine(global, info, -1))
 		return (quit(global) + error_malloc(global, 1));
-	loop_until_end_or_dead(global, info);
+	loop_until_end_or_dead(global, info, -1);
 }
