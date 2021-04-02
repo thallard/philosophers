@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:39:20 by thallard          #+#    #+#             */
-/*   Updated: 2021/03/30 11:08:51 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 15:35:03 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 	sem_unlink("global");
 	sem_unlink("philo");
 	sem_unlink("fork");
-	g_last = 1;
+
 	global = malloc(sizeof(t_global));
 	global->lst_free = NULL;
 	info = malloc_lst(sizeof(t_infos_philo), global);
